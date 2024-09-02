@@ -21,7 +21,27 @@
 </head>
 <body>
     <iframe src="https://space-adventure.online/telegram" frameborder="0"></iframe>
-     <script>
-    alert('gg');
-     </script>
+    <script>
+        // Define the JavaScript code you want to run in each iframe
+const codeToRun = () => {
+    console.log('This is running inside an iframe');
+    // You can add more JavaScript code here
+    document.body.style.color='red';
+};
+
+// Get all iframes in the document
+const iframes = document.getElementsByTagName('iframe');
+
+// Loop through each iframe
+for (let i = 0; i < iframes.length; i++) {
+    try {
+        // Access the iframe's content window and run the code
+        const iframeWindow = iframes[i].contentWindow;
+        iframeWindow.eval(`(${codeToRun.toString()})()`);
+    } catch (error) {
+        console.error('Error accessing iframe:', error);
+    }
+}
+
+    </script>
 </html>
