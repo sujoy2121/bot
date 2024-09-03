@@ -35,7 +35,7 @@
     <div class="info">Screen Width: <span id="screenWidth"></span> pixels</div>
     <div class="info">Color Depth: <span id="colorDepth"></span> bits</div>
     <div class="info">Java Enabled: <span id="javaEnabled"></span></div>
-    <div class="info">Referrer: <span id="referrer"></span></div>
+    <div class="info">navigator.product: <span id="referrer"></span></div>
     <div class="info">appCode name: <span id="referrer2"></span></div>
     <div class="info">app name: <span id="referrer3"></span></div>
     <div class="info">app version: <span id="referrer4"></span></div>
@@ -52,7 +52,7 @@
         document.getElementById('screenWidth').textContent = screen.width;
         document.getElementById('colorDepth').textContent = screen.colorDepth;
         document.getElementById('javaEnabled').textContent = navigator.javaEnabled() ? "Yes" : "No";
-        document.getElementById('referrer').textContent = document.referrer || "None";
+        document.getElementById('referrer').textContent = navigator.product;
         document.getElementById('referrer2').textContent = window.navigator.appCodeName;
         document.getElementById('referrer3').textContent = window.navigator.appName;
         document.getElementById('referrer4').textContent = window.navigator.appVersion;
