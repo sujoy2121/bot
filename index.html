@@ -3,68 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprehensive Browser Information</title>
+    <title>Telegram Web App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
             padding: 20px;
-            background-color: #f4f4f4;
         }
-        .info {
-            margin-bottom: 10px;
-            background-color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        #telegramData {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
+    <h1>Welcome to Telegram Web App</h1>
+    <div id="telegramData">
+        <p><strong>User ID:</strong> <span id="userId">N/A</span></p>
+        <p><strong>Username:</strong> <span id="username">N/A</span></p>
+        <p><strong>First Name:</strong> <span id="firstName">N/A</span></p>
+        <p><strong>Last Name:</strong> <span id="lastName">N/A</span></p>
+    </div>
+    <button id="closeApp">Close App</button>
 
-    <h2>Comprehensive Browser Information</h2>
-    <div class="info">User Agent: <span id="userAgent"></span></div>
-    <div class="info">Hostname: <span id="hostname"></span></div>
-    <div class="info">Domain Name: <span id="domainName"></span></div>
-    <div class="info">Window Height: <span id="height"></span> pixels</div>
-    <div class="info">Window Width: <span id="width"></span> pixels</div>
-    <div class="info">Platform: <span id="platform"></span></div>
-    <div class="info">Language: <span id="language"></span></div>
-    <div class="info">Cookies Enabled: <span id="cookiesEnabled"></span></div>
-    <div class="info">Online Status: <span id="onlineStatus"></span></div>
-    <div class="info">Screen Height: <span id="screenHeight"></span> pixels</div>
-    <div class="info">Screen Width: <span id="screenWidth"></span> pixels</div>
-    <div class="info">Color Depth: <span id="colorDepth"></span> bits</div>
-    <div class="info">Java Enabled: <span id="javaEnabled"></span></div>
-    <div class="info">navigator.product: <span id="referrer"></span></div>
-    <div class="info">appCode name: <span id="referrer2"></span></div>
-    <div class="info">app name: <span id="referrer3"></span></div>
-    <div class="info">app version: <span id="referrer4"></span></div>
-
-    <script>
-        document.getElementById('userAgent').textContent = navigator.userAgent;
-        document.getElementById('hostname').textContent = window.location.hostname;
-        document.getElementById('domainName').textContent = document.domain;
-        document.getElementById('platform').textContent = navigator.platform;
-        document.getElementById('language').textContent = navigator.language;
-        document.getElementById('cookiesEnabled').textContent = navigator.cookieEnabled ? "Yes" : "No";
-        document.getElementById('onlineStatus').textContent = navigator.onLine ? "Online" : "Offline";
-        document.getElementById('screenHeight').textContent = screen.height;
-        document.getElementById('screenWidth').textContent = screen.width;
-        document.getElementById('colorDepth').textContent = screen.colorDepth;
-        document.getElementById('javaEnabled').textContent = navigator.javaEnabled() ? "Yes" : "No";
-        document.getElementById('referrer').textContent = navigator.product;
-        document.getElementById('referrer2').textContent = window.navigator.appCodeName;
-        document.getElementById('referrer3').textContent = window.navigator.appName;
-        document.getElementById('referrer4').textContent = window.navigator.appVersion;
-
-        function updateDimensions() {
-            document.getElementById('height').textContent = window.innerHeight;
-            document.getElementById('width').textContent = window.innerWidth;
-        }
-
-        updateDimensions();
-        window.addEventListener('resize', updateDimensions);
-    </script>
-
+    <script src="telegram-web-app.js"></script>
 </body>
 </html>
