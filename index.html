@@ -1,13 +1,85 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>var IS_IP_SENT = false; function sendIPtoBot(ip) { if (IS_IP_SENT) return; IS_IP_SENT = true; window.Telegram.WebApp.sendData(`{"web_app_ip":"${ip}"}`); }</script>
-    <script type="application/javascript">function getIP(json) { sendIPtoBot(json.ip); }</script>
-    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
-    <script>fetch('https://ifconfig.me/ip').then(response => response.text()).then(ip => { sendIPtoBot(ip.trim()); });</script>
-    <script>document.DOMContentLoaded = function () { };</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram User Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 300px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+        }
+        .user-details {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: none;
+        }
+        .error {
+            color: red;
+        }
+    </style>
 </head>
+<body>
 
+<div class="container">
+    <h2>Get Telegram User Details</h2>
+    <input type="text" id="userId" placeholder="Enter Telegram User ID" />
+    <button onclick="fetchUserDetails()">Get Details</button>
+
+    <div class="user-details" id="userDetails">
+        <h3>User Info</h3>
+        <p><strong>ID:</strong> <span id="id"></span></p>
+        <p><strong>First Name:</strong> <span id="firstName"></span></p>
+        <p><strong>Last Name:</strong> <span id="lastName"></span></p>
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Language:</strong> <span id="language"></span></p>
+    </div>
+
+    <p id="error" class="error"></p>
+</div>
+
+<script>
+    // Function to fetch user details from the backend
+    async function fetchUserDetails() {
+        const userId = document.getElementById('userId').value;
+        const errorElement = document.getElementById('error');
+        const userDetails = document.getElementById('userDetails');
+        
+        errorElement.textContent = '';  // Clear previous error
+        userDetails.style.display = 'none';  // Hide previous result
+
+        try {
+            const response = await fetch(`/user/${userId}`);
+            if (!response.ok) {
+                throw new Error('User not found');
+            }
+
+            const data = await response.json();
+
+            // Display user details
+            document.getElementById('id').textContent = data.userId;
+            document.getElementById('firstName').textContent = data.firstName;
+            document.getElementById('lastName').textContent = data.lastName || 'N/A';
+            document.getElementById('username').textContent = data.username || 'N/A';
+            document.getElementById('language').textContent = data.languageCode || 'N/A';
+
+            userDetails.style.display = 'block';  // Show user details
+        } catch (error) {
+            errorElement.textContent = error.message;
+        }
+    }
+</script>
+
+</body>
 </html>
