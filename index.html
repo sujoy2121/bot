@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram WebApp User ID</title>
-    <script>
+</head>
+<body>
+    <h1>Telegram WebApp User Info</h1>
+    <p id="userId">Loading User ID...</p>
+    <p id="userName">Loading User Name...</p>
+
+     <script>
         // Wait for the WebApp to load
         window.onload = function () {
             const tg = window.Telegram.WebApp;
@@ -25,10 +31,5 @@
             }
         };
     </script>
-</head>
-<body>
-    <h1>Telegram WebApp User Info</h1>
-    <p id="userId">Loading User ID...</p>
-    <p id="userName">Loading User Name...</p>
 </body>
 </html>
