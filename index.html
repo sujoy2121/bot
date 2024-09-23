@@ -3,32 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram WebApp User Info</title>
-    <script>
-        window.onload = function () {
-            const tg = window.Telegram.WebApp;
-            tg.ready();
-
-            console.log("Telegram WebApp Initialized:", tg.initDataUnsafe); // Debug info
-
-            // Check if running inside Telegram
-            if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
-                alert("Please open this WebApp inside the Telegram app.");
-                document.getElementById("loading").innerText = "This app must be opened in Telegram.";
-                return;
-            }
-
-            // Display user info
-            const userId = tg.initDataUnsafe.user.id;
-            const userName = tg.initDataUnsafe.user.username || tg.initDataUnsafe.user.first_name;
-            document.getElementById("loading").innerText = `User ID: ${userId}`;
-            document.getElementById("userName").innerText = `User Name: ${userName}`;
-        };
-    </script>
+    <title>Mini App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .dark-theme {
+            background-color: #333;
+            color: white;
+        }
+        .light-theme {
+            background-color: white;
+            color: black;
+        }
+    </style>
 </head>
 <body>
-    <h1>Telegram WebApp User Info</h1>
-    <p id="loading">Loading User ID...</p>
-    <p id="userName"></p>
+    <h1>Welcome to the Mini App</h1>
+    <div id="user-info">
+        <!-- User info will be displayed here -->
+    </div>
+
+    <script>
+        // Function to extract query parameters from the URL
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                id: params.get('id'),
+                name: params.get('name'),
+                username: params.get('username'),
+                languageCode: params.get('language_code'),
+                queryId: params.get('query_id'),
+                theme: params.get('theme')
+            };
+        }
+
+        // Get user info from the query params
+        const userInfo = getQueryParams();
+
+        // Display user info in the HTML
+        const userInfoDiv = document.getElementById('user-info');
+        userInfoDiv.innerHTML = `
+            <p><strong>ID:</strong> ${userInfo.id}</p>
+            <p><strong>Name:</strong> ${userInfo.name}</p>
+            <p><strong>Username:</strong> ${userInfo.username}</p>
+            <p><strong>Language Code:</strong> ${userInfo.languageCode}</p>
+            <p><strong>Query ID:</strong> ${userInfo.queryId}</p>
+            <p><strong>Theme:</strong> ${userInfo.theme}</p>
+        `;
+
+        // Apply the theme settings
+        if (userInfo.theme === 'dark') {
+            document.body.classList.add('dark-theme');
+        } else {
+            document.body.classList.add('light-theme');
+        }
+
+        // Example: Communicating back to the bot (if needed)
+        // You can use the `queryId` to send a message back to the bot
+        function sendMessageToBot(message) {
+            // Replace with the API endpoint to send data back to the bot
+            fetch('https://github.com/sujoy2121/bot/sendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    query_id: userInfo.queryId,
+                    message: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log('Message sent:', data))
+            .catch(error => console.error('Error sending message:', error));
+        }
+
+        // Example call to send a message back to the bot
+        // sendMessageToBot('Hello, bot! The user is interacting with the mini app.');
+    </script>
 </body>
 </html>
