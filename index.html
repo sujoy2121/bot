@@ -3,34 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram WebApp User ID</title>
-</head>
-<body>
-  <p id="loading">Loading...</p>
-<p id="userId" style="display: none;">User ID: </p>
-<p id="userName" style="display: none;">User Name: </p>
+    <title>Telegram WebApp User Info</title>
+    <script>
+        window.onload = function () {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
 
-<script>
-    window.onload = function () {
-        const tg = window.Telegram.WebApp;
-        tg.ready();
+            console.log("Telegram WebApp Initialized:", tg.initDataUnsafe); // Debug info
 
-        // Check if WebApp is running inside Telegram
-        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            // Check if running inside Telegram
+            if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
+                alert("Please open this WebApp inside the Telegram app.");
+                document.getElementById("loading").innerText = "This app must be opened in Telegram.";
+                return;
+            }
+
+            // Display user info
             const userId = tg.initDataUnsafe.user.id;
             const userName = tg.initDataUnsafe.user.username || tg.initDataUnsafe.user.first_name;
-
-            // Hide the loading message and show the data
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("userId").innerText = `User ID: ${userId}`;
+            document.getElementById("loading").innerText = `User ID: ${userId}`;
             document.getElementById("userName").innerText = `User Name: ${userName}`;
-            document.getElementById("userId").style.display = "block";
-            document.getElementById("userName").style.display = "block";
-        } else {
-            document.getElementById("loading").innerText = "User ID not available. Please open in Telegram.";
-        }
-    };
-</script>
-
+        };
+    </script>
+</head>
+<body>
+    <h1>Telegram WebApp User Info</h1>
+    <p id="loading">Loading User ID...</p>
+    <p id="userName"></p>
 </body>
 </html>
